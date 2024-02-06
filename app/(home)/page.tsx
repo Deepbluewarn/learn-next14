@@ -1,8 +1,11 @@
-import Navigation from "../components/navigation";
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+    title: 'Home'
+}
 
 export default function Page() {
     return <div>
-        <Navigation />
         <h1>Hello World!</h1>
     </div>
 }
