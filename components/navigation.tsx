@@ -2,11 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 
 export default function Navigation() {
     const path = usePathname();
-    const [count, setCount] = useState(0);
 
     return (
         <div>
@@ -19,8 +17,7 @@ export default function Navigation() {
                         <Link href='/about-us'>About Us {path === '/about-us' ? "🔥" : ""}</Link>
                     </li>
                 </ul>
-            </nav>
-            <button onClick={() => setCount(count + 1)}>{count}</button>
+            </nav> 
         </div>
 
     )
