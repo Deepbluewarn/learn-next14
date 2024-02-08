@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { API_URL } from "../app/constants";
 import styles from '../styles/provider.module.css';
 
@@ -19,6 +19,7 @@ export default function Provider({ id }: { id: string }) {
     const [providers, setProviders] = useState({});
     const [countryCode, setCountryCode] = useState('');
     const [type, setType] = useState('');
+    const typeSelectRef = useRef<HTMLSelectElement>(null);
 
     const onCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setCountryCode(e.target.value);
@@ -41,6 +42,8 @@ export default function Provider({ id }: { id: string }) {
     }, [providers, countryCode]);
 
     const ProviderList = useCallback(() => {
+        console.log('ProviderList', countryCode, type);
+
         const providerListByType = (providers[countryCode] || {})[type] || [];
 
         if(providerListByType.length > 0) {
@@ -73,6 +76,10 @@ export default function Provider({ id }: { id: string }) {
         setType(ProviderTypeList()[0]);
     }, [providers, countryCode]);
 
+    useEffect(() => {
+        typeSelectRef.current.value = type;
+    }, [type])
+
     return (
         <div className={styles.container}>
             <span className={styles.title}>Providers</span>
@@ -84,7 +91,7 @@ export default function Provider({ id }: { id: string }) {
                             })
                         }
                     </select>
-                    <select name="type" id="type-select" onChange={onTypeChange}>
+                    <select ref={typeSelectRef} name="type" id="type-select" onChange={onTypeChange}>
                         {
                             ProviderTypeList()?.map((ListType) => {
                                 return <option key={ListType} value={ListType}>{ProviderTypeObject[ListType]}</option>
