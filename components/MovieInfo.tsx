@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { API_URL } from "../app/constants";
 import styles from "../styles/movie-info.module.css";
 import Provider from "./Provider";
@@ -18,6 +19,7 @@ export default async function MovieInfo({ id }: { id: string }) {
                 <h3>💜 {movie.vote_average.toFixed(1)}</h3>
                 <p className={styles.overview}>{movie.overview}</p>
                 <a href={movie.homepage} target="_blank">Homepage &rarr;</a>
+                <Link href={`/movies/${id}/similar`}>Similar Movies &rarr;</Link>
                 <Provider id={id}/>
             </div>
         </div>
